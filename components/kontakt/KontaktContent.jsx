@@ -2,14 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { contact, oeffnungszeiten, geo } from "@/lib/data";
 import { EASE, FadeUp } from "@/components/motion";
 
 export default function KontaktContent() {
-  const [sent, setSent] = useState(false);
-
   const bbox = `${(geo.lng - 0.012).toFixed(4)}%2C${(geo.lat - 0.006).toFixed(4)}%2C${(geo.lng + 0.012).toFixed(4)}%2C${(geo.lat + 0.006).toFixed(4)}`;
   const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${geo.lat}%2C${geo.lng}`;
 
@@ -68,126 +65,97 @@ export default function KontaktContent() {
             transition={{ duration: 0.8, delay: 0.36, ease: EASE }}
             className="mt-5 max-w-2xl text-lg leading-relaxed text-cream/85 [text-shadow:0_1px_8px_rgba(0,0,0,0.45)]"
           >
-            Erzählen Sie mir kurz, was Sie bewegt. Gemeinsam finden wir den
-            passenden Weg für Ihre Behandlung. Persönlich, in Ruhe und mit Zeit
-            für Ihr Anliegen.
+            Erzählen Sie mir kurz, was Sie bewegt. Sie erreichen mich
+            telefonisch oder per E-Mail, und gemeinsam finden wir den passenden
+            Weg für Ihre Behandlung.
           </motion.p>
 
-          <motion.a
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.46, ease: EASE }}
-            href="#formular"
-            className="btn btn-primary btn-lg group mt-8"
+            className="mt-8 flex flex-col gap-4 sm:flex-row"
           >
-            Nachricht schreiben
-            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
-          </motion.a>
+            <a href={contact.telefonHref} className="btn btn-primary btn-lg">
+              <Phone className="size-4" />
+              Jetzt anrufen
+            </a>
+            <a href={contact.emailHref} className="btn btn-outline-light btn-lg">
+              <Mail className="size-4" />
+              E-Mail schreiben
+            </a>
+          </motion.div>
         </div>
       </section>
 
-      {/* Formular + Info */}
-      <section
-        id="formular"
-        className="mx-auto grid max-w-7xl scroll-mt-24 gap-10 px-5 py-20 md:px-8 lg:grid-cols-[1.3fr_1fr] lg:py-28"
-      >
+      {/* Kontaktwege + Info */}
+      <section className="mx-auto grid max-w-7xl gap-10 px-5 py-20 md:px-8 lg:grid-cols-[1.3fr_1fr] lg:py-28">
         <FadeUp>
-          <form
-            className="rounded-3xl border hairline bg-paper p-8 shadow-xl shadow-forest/5 md:p-10"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-            }}
-          >
-            <h2 className="font-display text-display-md text-ink">Schreiben Sie uns</h2>
-            <p className="mt-2 text-sm text-mist">
-              Ich melde mich in der Regel innerhalb von 24 Stunden bei Ihnen.
+          <div className="rounded-3xl bg-forest p-8 text-cream shadow-xl shadow-forest/10 md:p-10">
+            <h2 className="font-display text-display-md">So erreichen Sie mich</h2>
+            <p className="mt-3 max-w-lg text-sm leading-relaxed text-cream/70">
+              Am schnellsten geht es telefonisch, mobil bin ich auch außerhalb
+              der üblichen Zeiten erreichbar. Gerne können Sie mir Ihr Anliegen
+              auch per E-Mail schildern, ich melde mich in der Regel innerhalb
+              von 24 Stunden bei Ihnen.
             </p>
 
-            {sent ? (
-              <div className="mt-6 rounded-2xl border border-leaf/30 bg-leaf/10 p-6 text-ink">
-                <div className="flex items-center gap-2 font-semibold text-pine">
-                  <Check className="size-5" /> Vielen Dank
-                </div>
-                <p className="mt-2 text-sm text-mist">
-                  Ihre Nachricht ist angekommen. Ich melde mich schnellstmöglich
-                  bei Ihnen.
-                </p>
-              </div>
-            ) : (
-              <div className="mt-6 grid gap-4">
-                <Field label="Name" name="name" required />
-                <Field label="E-Mail" name="email" type="email" required />
-                <Field label="Telefon" name="phone" type="tel" />
-                <div>
-                  <label htmlFor="nachricht" className="text-sm font-medium text-ink">
-                    Ihre Nachricht *
-                  </label>
-                  <textarea
-                    id="nachricht"
-                    name="nachricht"
-                    required
-                    rows={5}
-                    className="mt-1.5 w-full rounded-xl border border-ink/15 bg-cream/40 px-4 py-3 text-sm text-ink transition-colors focus:border-leaf/60 focus:outline-none focus:ring-2 focus:ring-leaf/40"
-                  />
-                </div>
-                <label className="flex items-start gap-2 text-xs text-mist">
-                  <input type="checkbox" required className="mt-0.5 accent-leaf" />
+            <ul className="mt-8 space-y-3">
+              <li>
+                <a
+                  href={contact.telefonHref}
+                  className="group flex items-center gap-4 rounded-2xl border hairline-light bg-pine/40 p-5 transition-colors hover:bg-pine/70"
+                >
+                  <Phone className="size-6 shrink-0 text-leaf-soft" />
                   <span>
-                    Ich habe die{" "}
-                    <Link href="/datenschutz" className="text-pine underline hover:text-leaf">
-                      Datenschutzerklärung
-                    </Link>{" "}
-                    gelesen und stimme der Verarbeitung meiner Angaben zur
-                    Kontaktaufnahme zu.
+                    <span className="block text-kicker text-cream/60">Praxis</span>
+                    <span className="mt-1 block font-display text-xl">{contact.telefon}</span>
                   </span>
-                </label>
-                <button type="submit" className="btn btn-primary btn-lg mt-1 w-full">
-                  Nachricht senden
-                </button>
-              </div>
-            )}
-          </form>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={contact.mobilHref}
+                  className="group flex items-center gap-4 rounded-2xl border hairline-light bg-pine/40 p-5 transition-colors hover:bg-pine/70"
+                >
+                  <Phone className="size-6 shrink-0 text-leaf-soft" />
+                  <span>
+                    <span className="block text-kicker text-cream/60">Mobil</span>
+                    <span className="mt-1 block font-display text-xl">{contact.mobil}</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={contact.emailHref}
+                  className="group flex items-center gap-4 rounded-2xl border hairline-light bg-pine/40 p-5 transition-colors hover:bg-pine/70"
+                >
+                  <Mail className="size-6 shrink-0 text-leaf-soft" />
+                  <span>
+                    <span className="block text-kicker text-cream/60">E-Mail</span>
+                    <span className="mt-1 block break-all font-display text-lg md:text-xl">
+                      {contact.email}
+                    </span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+
+            <div className="mt-8 flex items-start gap-3 border-t hairline-light pt-6 text-sm text-cream/80">
+              <MapPin className="mt-0.5 size-5 shrink-0 text-leaf-soft" />
+              <address className="not-italic leading-relaxed">
+                {contact.praxis} im FTZ Mühldorf
+                <br />
+                {contact.strasse}
+                <br />
+                {contact.ort}
+              </address>
+            </div>
+          </div>
         </FadeUp>
 
         <aside className="space-y-6">
           <FadeUp delay={0.1}>
-            <div className="rounded-3xl bg-forest p-8 text-cream shadow-xl shadow-forest/10">
-              <h3 className="font-display text-2xl">So erreichen Sie mich</h3>
-              <ul className="mt-5 space-y-4 text-sm">
-                <li className="flex items-start gap-3">
-                  <MapPin className="mt-0.5 size-5 shrink-0 text-leaf-soft" />
-                  <span>
-                    {contact.praxis}
-                    <br />
-                    {contact.strasse}
-                    <br />
-                    {contact.ort}
-                  </span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Phone className="size-5 shrink-0 text-leaf-soft" />
-                  <a href={contact.telefonHref} className="link-quiet hover:text-leaf-soft">
-                    {contact.telefon}
-                  </a>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Phone className="size-5 shrink-0 text-leaf-soft" />
-                  <a href={contact.mobilHref} className="link-quiet hover:text-leaf-soft">
-                    {contact.mobil}
-                  </a>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Mail className="size-5 shrink-0 text-leaf-soft" />
-                  <a href={contact.emailHref} className="link-quiet break-all hover:text-leaf-soft">
-                    {contact.email}
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </FadeUp>
-
-          <FadeUp delay={0.2}>
             <div className="rounded-3xl border hairline bg-paper p-8">
               <h3 className="flex items-center gap-2 font-display text-xl text-ink">
                 <Clock className="size-5 text-leaf" /> Termine
@@ -211,7 +179,7 @@ export default function KontaktContent() {
             </div>
           </FadeUp>
 
-          <FadeUp delay={0.3}>
+          <FadeUp delay={0.2}>
             <div className="aspect-[4/3] overflow-hidden rounded-3xl border hairline">
               <iframe
                 title="Karte, Praxis INNNatur, Münchener Straße 84c, Mühldorf am Inn"
@@ -227,36 +195,10 @@ export default function KontaktContent() {
   );
 }
 
-function Field({ label, name, type = "text", required }) {
-  return (
-    <div>
-      <label htmlFor={name} className="text-sm font-medium text-ink">
-        {label}
-        {required && " *"}
-      </label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        required={required}
-        className="mt-1.5 w-full rounded-xl border border-ink/15 bg-cream/40 px-4 py-3 text-sm text-ink transition-colors focus:border-leaf/60 focus:outline-none focus:ring-2 focus:ring-leaf/40"
-      />
-    </div>
-  );
-}
-
 function ChevronRight({ className }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden>
       <path strokeLinecap="round" strokeLinejoin="round" d="m9 5 7 7-7 7" />
-    </svg>
-  );
-}
-
-function ArrowRight({ className }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className} aria-hidden>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12l-7.5 7.5M21 12H3" />
     </svg>
   );
 }
@@ -302,14 +244,6 @@ function Clock({ className }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className} aria-hidden>
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-    </svg>
-  );
-}
-
-function Check({ className }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden>
-      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
     </svg>
   );
 }
