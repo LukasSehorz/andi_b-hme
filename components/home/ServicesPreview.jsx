@@ -17,14 +17,15 @@ export default function ServicesPreview() {
             </FadeUp>
             <SplitWords
               as="h2"
-              text="Vierzehn Methoden, ein *Ziel.*"
+              text="Sechzehn Methoden, ein *Ziel.*"
               className="font-display text-display-lg text-ink"
             />
             <FadeUp delay={0.15}>
               <p className="mt-6 max-w-xl leading-relaxed text-mist">
                 Vom zertifizierten Muskeltest über die manuelle Behandlung bis
-                zum Aufbautraining greift in dieser Praxis alles ineinander.
-                Vier Bereiche geben Ihnen einen ersten Überblick.
+                zur Laboranalyse von Blut, Stuhl und Speichel greift in dieser
+                Praxis alles ineinander. Vier Bereiche geben Ihnen einen ersten
+                Überblick.
               </p>
             </FadeUp>
           </div>

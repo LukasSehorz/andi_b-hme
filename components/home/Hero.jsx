@@ -95,7 +95,7 @@ export default function Hero() {
             </div>
             <div>
               <dt className="text-kicker text-mist">Methoden</dt>
-              <dd className="mt-1 font-display text-2xl text-ink">14 Verfahren</dd>
+              <dd className="mt-1 font-display text-2xl text-ink">16 Verfahren</dd>
             </div>
             <div className="hidden sm:block">
               <dt className="text-kicker text-mist">Betreuung</dt>

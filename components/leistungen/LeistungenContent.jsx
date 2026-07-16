@@ -36,7 +36,9 @@ export default function LeistungenContent() {
                 className="mt-8 max-w-lg text-lg leading-relaxed text-mist"
               >
                 Sportler und Privatpersonen finden in der Praxis INNNatur
-                vierzehn Behandlungsarten und Techniken unter einem Dach. Welche
+                sechzehn Behandlungsarten und Techniken unter einem Dach, von
+                der Labordiagnostik über die manuelle Behandlung bis zur
+                Vitamin-Infusion. Welche
                 davon für Sie die richtige ist, entscheidet Ihr Befund und nie
                 ein Schema.
               </motion.p>
@@ -119,8 +121,8 @@ export default function LeistungenContent() {
                 transition={{ duration: 0.9, delay: 1.4, ease: EASE }}
                 className="absolute -bottom-6 -right-4 rounded-2xl border hairline bg-paper px-6 py-4 shadow-xl shadow-forest/10 md:-right-8"
               >
-                <p className="font-display text-lg text-ink">14 Behandlungsarten</p>
-                <p className="text-sm text-mist">von der Diagnostik bis zum Training</p>
+                <p className="font-display text-lg text-ink">16 Behandlungsarten</p>
+                <p className="text-sm text-mist">von der Labordiagnostik bis zur Infusion</p>
               </motion.div>
             </div>
           </div>
